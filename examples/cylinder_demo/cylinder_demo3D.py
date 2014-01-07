@@ -1,6 +1,7 @@
 """ pyURDME model file for the annihilation cylinder 3D example. """
 
 import os
+import sys
 from pyurdme import pyurdme
 import dolfin
 
@@ -62,12 +63,19 @@ class cylinderDemo3D(pyurdme.URDMEModel):
 
 if __name__ == "__main__":
     model = cylinderDemo3D()
-    result = pyurdme.urdme(model)
+
+    #result = pyurdme.urdme(model)
+    ##
+    from adfsp_solver import ADFSPSolver
+    result = pyurdme.urdme(model, solver=ADFSPSolver)
+
+    #sys.exit(0)
+
     # This line here dumps the state of A at all timepoints to Paraview comaptible output (VTK). The trajectory
     # is written to a folder "Aout", where each snapshot is stored in a separate file. To open the "movie",
     # just open Aout/trajectory.pvd, then you can animate etc.
-    result.dumps(species='A',folder_name="Aout")
-    result.dumps(species='B',folder_name="Bout")
+    #result.dumps(species='A',folder_name="Aout")
+    #result.dumps(species='B',folder_name="Bout")
 
     #print result
 
